@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>        
+        <script src="https://unpkg.com/vue-resource@1.0.3/dist/vue-resource.min.js"></script>        
+    </head>
+    <body>
+        <div id="app">
+            <table border=1>
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>name</th>
+                  <th>username</th>
+                  <th>email</th>
+                </tr>
+              </thead>
+              <tr v-for="user in userList">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+              </tr>
+            </table>           
+          </div>
+        <script>
+           var app = new Vue({
+  el: '#app',
+  data: {
+    userList: []
+  },
+  mounted: function() {
+    var root = 'https://jsonplaceholder.typicode.com/users';
+    this.$http.get(root).then(function (resp) {
+      if (resp.status == 200) {
+        this.userList = resp.data;
+      }
+    }); 
+  }            
+}); 
+        </script>
+    </body>
+</html>
